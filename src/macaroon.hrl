@@ -47,8 +47,8 @@
 -define(CL_KEY, <<"cl">>).
 
 -record(macaroon, {
-    identifier :: binary(),
-    location :: binary(),
+    identifier :: binary() | undefined,
+    location :: binary() | undefined,
     caveats = [] :: [binary() | {binary(), binary(), binary()}],
-    signature :: binary()
+    signature :: binary() | undefined
 }).
