@@ -42,7 +42,7 @@
 -export([create/3, add_first_party_caveat/2, add_third_party_caveat/4,
     prepare_for_request/2]).
 -export([is_macaroon/1, third_party_caveats/1, location/1, signature/1,
-    identifier/1, inspect/1]).
+    identifier/1, first_party_caveats/1, inspect/1]).
 -export([serialize/1, deserialize/1]).
 -export([suggested_secret_length/0]).
 
@@ -176,6 +176,15 @@ signature(#macaroon{} = M) ->
 -spec identifier(Macaroon :: macaroon()) -> binary().
 identifier(#macaroon{} = M) ->
     M#macaroon.identifier.
+
+%%------------------------------------------------------------------------------
+%% @doc
+%% Returns macaroon's first party caveats.
+%% @end
+%%------------------------------------------------------------------------------
+-spec first_party_caveats(Macaroon :: macaroon()) -> [binary()].
+first_party_caveats(#macaroon{caveats = Caveats}) ->
+    lists:reverse(lists:filter(fun is_binary/1, Caveats)).
 
 %%------------------------------------------------------------------------------
 %% @doc
